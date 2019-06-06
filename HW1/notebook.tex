@@ -1,0 +1,851 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{from} \PY{n+nn}{seaborn} \PY{k}{import} \PY{n}{scatterplot}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{neighbors}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k+kn}{import} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{as} \PY{n+nn}{metr}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{zero\PYZus{}one\PYZus{}loss}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{prettytable} \PY{k}{import} \PY{n}{PrettyTable}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{path1}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{Users}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{HP}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{Desktop}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{EE559}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{HW1}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{vertebral\PYZus{}column\PYZus{}data}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{path}\PY{o}{=}\PY{n}{path1}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/column\PYZus{}2C.dat}\PY{l+s+s1}{\PYZsq{}}                                                       \PY{c+c1}{\PYZsh{} create dirtory}
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}table}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LLA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}                        \PY{c+c1}{\PYZsh{} change the columns\PYZsq{}name of DATAFRAME}
+         \PY{n}{n} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{220}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num\PYZus{}AB} \PY{o}{=} \PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{num}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n}{num\PYZus{}NO} \PY{o}{=} \PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{p}{(}\PY{n}{num}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}   print(num\PYZus{}AB,num\PYZus{}NO)}
+             \PY{n}{train\PYZus{}AB} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{num\PYZus{}AB}\PY{p}{)}
+             \PY{n}{train\PYZus{}NO} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{num\PYZus{}NO}\PY{p}{)}
+             \PY{n}{train} \PY{o}{=} \PY{n}{train\PYZus{}NO}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}AB}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} print (train.shape)}
+             \PY{n}{test\PYZus{}AB} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{num\PYZus{}AB}\PY{p}{:}\PY{p}{]}
+             \PY{n}{test\PYZus{}NO} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{num\PYZus{}NO}\PY{p}{:}\PY{p}{]}
+             \PY{n}{test} \PY{o}{=} \PY{n}{test\PYZus{}NO}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}AB}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} print (test.shape)}
+             \PY{k}{return} \PY{n}{train}\PY{p}{,}\PY{n}{test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k}{def} \PY{n+nf}{knn}\PY{p}{(} \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{num\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{,} \PY{n}{num\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{sq1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{sq2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{dists}\PY{p}{,} \PY{n}{sq1}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{dists}\PY{p}{,} \PY{n}{sq2}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{dists}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{dists}\PY{p}{)}
+             \PY{k}{return} \PY{n}{dists}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{k}{def} \PY{n+nf}{predict\PYZus{}labels}\PY{p}{(}\PY{n}{dists}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num\PYZus{}test} \PY{o}{=} \PY{n}{dists}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{closest\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{dists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{n}{closest\PYZus{}y}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{y\PYZus{}pred}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k}{def} \PY{n+nf}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,}\PY{n}{test}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} make train and test sample}
+             \PY{n}{train1} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{values}
+             \PY{n}{train\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{train1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{y\PYZus{}test}  \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{train1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{train1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{elif} \PY{n}{train1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{break}
+         
+             \PY{n}{test1} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{values}
+             \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{test1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{test1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{test1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{elif} \PY{n}{test1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{k}{return} \PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{train\PYZus{}1}\PY{p}{,}\PY{n}{test\PYZus{}1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k}{def} \PY{n+nf}{result\PYZus{}deduction}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}best}\PY{p}{)}\PY{p}{:}
+             \PY{n}{C2} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}best}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{sample\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The confusion matrix is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{n}{C2}\PY{p}{)}
+             \PY{n}{TP} \PY{o}{=} \PY{n}{C2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{TN}\PY{o}{=}  \PY{n}{C2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{FP}\PY{o}{=}  \PY{n}{C2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{FN}\PY{o}{=}  \PY{n}{C2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{TPR} \PY{o}{=} \PY{n}{TP} \PY{o}{/}\PY{p}{(}\PY{n}{TP} \PY{o}{+} \PY{n}{FN}\PY{p}{)}
+             \PY{n}{TNR} \PY{o}{=} \PY{n}{TN} \PY{o}{/}\PY{p}{(}\PY{n}{TN} \PY{o}{+} \PY{n}{FP}\PY{p}{)}
+             \PY{n}{precision} \PY{o}{=} \PY{n}{TP}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{recall}\PY{o}{=}\PY{n}{TP}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{f1\PYZus{}score} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{precision} \PY{o}{*} \PY{n}{recall}\PY{o}{/}\PY{p}{(}\PY{n}{precision} \PY{o}{+} \PY{n}{recall} \PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Ture positive rate is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{TPR}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Ture negative rate is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{TNR}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precision is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{precision}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The f1 score is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{f1\PYZus{}score}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{C2}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}error}\PY{p}{(}\PY{n}{train}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{k\PYZus{}} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{211}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{train\PYZus{}1}\PY{p}{,}\PY{n}{test\PYZus{}1}  \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,}\PY{n}{test}\PY{p}{)}
+             \PY{n}{dists} \PY{o}{=} \PY{n}{knn}\PY{p}{(}\PY{n}{train\PYZus{}1} \PY{p}{,}\PY{n}{test\PYZus{}1} \PY{p}{)}
+             \PY{n}{final\PYZus{}result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{a} \PY{o}{=} \PY{n}{b} \PY{o}{=}\PY{l+m+mi}{0}
+             \PY{n}{a\PYZus{}1} \PY{o}{=} \PY{n}{b\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{predict\PYZus{}labels}\PY{p}{(}\PY{n}{dists}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{k} \PY{o}{=} \PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{a} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{l+m+mi}{1}
+                     \PY{k}{elif} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{!=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{b} \PY{o}{=} \PY{n}{b} \PY{o}{+} \PY{l+m+mi}{1}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{break}
+                 \PY{n}{accuracy} \PY{o}{=} \PY{n}{a}\PY{o}{/}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{)}
+                 \PY{n}{error}    \PY{o}{=} \PY{n}{b}\PY{o}{/}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}Got \PYZpc{}d / \PYZpc{}d error rate: \PYZpc{}f, when k is \PYZpc{}d\PYZsq{} \PYZpc{} (a, len(y\PYZus{}pred), error,k\PYZus{}[i]))}
+                 \PY{n}{final\PYZus{}result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{error}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} plt.errorbar(k\PYZus{}, final\PYZus{}result)}
+             \PY{c+c1}{\PYZsh{} plt.title(\PYZsq{}test of K\PYZsq{})}
+             \PY{c+c1}{\PYZsh{} plt.xlabel(\PYZsq{}K\PYZsq{})}
+             \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZsq{}Accuracy\PYZsq{})}
+             \PY{n}{best\PYZus{}k} \PY{o}{=} \PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{final\PYZus{}result}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{final\PYZus{}result} \PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{n}{y\PYZus{}pred\PYZus{}best} \PY{o}{=} \PY{n}{predict\PYZus{}labels}\PY{p}{(}\PY{n}{dists}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{k} \PY{o}{=} \PY{n}{best\PYZus{}k}\PY{p}{)}  \PY{c+c1}{\PYZsh{} predict value [.......]}
+         
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}best}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{y\PYZus{}pred\PYZus{}best}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{a\PYZus{}1} \PY{o}{=} \PY{n}{a\PYZus{}1} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{k}{elif} \PY{n}{y\PYZus{}pred\PYZus{}best}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{!=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{b\PYZus{}1} \PY{o}{=} \PY{n}{b\PYZus{}1} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{n}{error\PYZus{}lowest} \PY{o}{=} \PY{n}{b\PYZus{}1} \PY{o}{/} \PY{p}{(}\PY{n}{a\PYZus{}1} \PY{o}{+} \PY{n}{b\PYZus{}1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} print (\PYZsq{}The best k is \PYZpc{}d and the lowest error is \PYZpc{}f\PYZsq{} \PYZpc{}(best\PYZus{}k,error\PYZus{}lowest))}
+             \PY{k}{return} \PY{n}{error\PYZus{}lowest}\PY{p}{,}\PY{n}{best\PYZus{}k}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}best}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{b\PYZus{}2}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{diag\PYZus{}kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kde}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (b\PYZhy{}1) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b\PYZus{}2}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (b-1) is 
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<matplotlib.figure.Figure at 0x2683f1c8400>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{b\PYZus{}3}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{321}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{322}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{323}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LLA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{324}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{325}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{326}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{trim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+             \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1}\PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shape of training set is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The shape of test set is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The train data set look like this }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{train}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (b\PYZhy{}2 and b\PYZhy{}3) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b\PYZus{}3}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (b-2 and b-3) is 
+The shape of training set is 
+(210, 7)
+The shape of test set is 
+(100, 7)
+The train data set look like this 
+         PI     PT    LLA      SS      PR     GOS class
+210   38.51  16.96  35.11   21.54  127.63    7.99    NO
+211   54.92  18.97  51.60   35.95  125.85    2.00    NO
+212   44.36   8.95  46.90   35.42  129.22    4.99    NO
+213   48.32  17.45  48.00   30.87  128.98   -0.91    NO
+214   45.70  10.66  42.58   35.04  130.18   -3.39    NO
+215   30.74  13.35  35.90   17.39  142.41   -2.01    NO
+216   50.91   6.68  30.90   44.24  118.15   -1.06    NO
+217   38.13   6.56  50.45   31.57  132.11    6.34    NO
+218   51.62  15.97  35.00   35.66  129.39    1.01    NO
+219   64.31  26.33  50.96   37.98  106.18    3.12    NO
+220   44.49  21.79  31.47   22.70  113.78   -0.28    NO
+221   54.95   5.87  53.00   49.09  126.97   -0.63    NO
+222   56.10  13.11  62.64   43.00  116.23   31.17    NO
+223   69.40  18.90  75.97   50.50  103.58   -0.44    NO
+224   89.83  22.64  90.56   67.20  100.50    3.04    NO
+225   59.73   7.72  55.34   52.00  125.17    3.24    NO
+226   63.96  16.06  63.12   47.90  142.36    6.30    NO
+227   61.54  19.68  52.89   41.86  118.69    4.82    NO
+228   38.05   8.30  26.24   29.74  123.80    3.89    NO
+229   43.44  10.10  36.03   33.34  137.44   -3.11    NO
+230   65.61  23.14  62.58   42.47  124.13   -4.08    NO
+231   53.91  12.94  39.00   40.97  118.19    5.07    NO
+232   43.12  13.82  40.35   29.30  128.52    0.97    NO
+233   40.68   9.15  31.02   31.53  139.12   -2.51    NO
+234   37.73   9.39  42.00   28.35  135.74   13.68    NO
+235   63.93  19.97  40.18   43.96  113.07  -11.06    NO
+236   61.82  13.60  64.00   48.22  121.78    1.30    NO
+237   62.14  13.96  58.00   48.18  133.28    4.96    NO
+238   69.00  13.29  55.57   55.71  126.61   10.83    NO
+239   56.45  19.44  43.58   37.00  139.19   -1.86    NO
+..      {\ldots}    {\ldots}    {\ldots}     {\ldots}     {\ldots}     {\ldots}   {\ldots}
+110   63.90  13.71  62.12   50.19  114.13   41.42    AB
+111   85.00  29.61  83.35   55.39  126.91   71.32    AB
+112   42.02  -6.55  67.90   48.58  111.59   27.34    AB
+113   69.76  19.28  48.50   50.48   96.49   51.17    AB
+114   80.99  36.84  86.96   44.14  141.09   85.87    AB
+115  129.83   8.40  48.38  121.43  107.69  418.54    AB
+116   70.48  12.49  62.42   57.99  114.19   56.90    AB
+117   86.04  38.75  47.87   47.29  122.09   61.99    AB
+118   65.54  24.16  45.78   41.38  136.44   16.38    AB
+119   60.75  15.75  43.20   45.00  113.05   31.69    AB
+120   54.74  12.10  41.00   42.65  117.64   40.38    AB
+121   83.88  23.08  87.14   60.80  124.65   80.56    AB
+122   80.07  48.07  52.40   32.01  110.71   67.73    AB
+123   65.67  10.54  56.49   55.12  109.16   53.93    AB
+124   74.72  14.32  32.50   60.40  107.18   37.02    AB
+125   48.06   5.69  57.06   42.37   95.44   32.84    AB
+126   70.68  21.70  59.18   48.97  103.01   27.81    AB
+127   80.43  17.00  66.54   63.43  116.44   57.78    AB
+128   90.51  28.27  69.81   62.24  100.89   58.82    AB
+129   77.24  16.74  49.78   60.50  110.69   39.79    AB
+130   50.07   9.12  32.17   40.95   99.71   26.77    AB
+131   69.78  13.78  58.00   56.00  118.93   17.91    AB
+132   69.63  21.12  52.77   48.50  116.80   54.82    AB
+133   81.75  20.12  70.56   61.63  119.43   55.51    AB
+134   52.20  17.21  78.09   34.99  136.97   54.94    AB
+135   77.12  30.35  77.48   46.77  110.61   82.09    AB
+136   88.02  39.84  81.77   48.18  116.60   56.77    AB
+137   83.40  34.31  78.42   49.09  110.47   49.67    AB
+138   72.05  24.70  79.87   47.35  107.17   56.43    AB
+139   85.10  21.07  91.73   64.03  109.06   38.03    AB
+
+[210 rows x 7 columns]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def} \PY{n+nf}{c\PYZus{}2\PYZus{}1}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k\PYZus{}} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{211}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+             \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+             \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1}  \PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}TEST : The k is \PYZpc{}d, and the error rate is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{best\PYZus{}k} \PY{o}{=} \PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{best\PYZus{}k}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The best k is }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ and the lowest error is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{best\PYZus{}k}\PY{p}{,} \PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{result\PYZus{}deduction}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred\PYZus{}train} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}TRAIN: The k is \PYZpc{}d, and the error rate is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}train, y\PYZus{}pred\PYZus{}train)))}
+                 \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The lowest train error is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{,} \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{,} \PY{n}{error\PYZus{}c\PYZus{}2\PYZus{}1\PYZus{}train}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{invert\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test of K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (c\PYZhy{}2) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{c\PYZus{}2\PYZus{}1}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (c-2) is 
+The best k is 4 and the lowest error is 0.060000
+The confusion matrix is
+[[25  5]
+ [ 1 69]]
+The Ture positive rate is 0.833333
+The Ture negative rate is 0.985714
+precision is 0.961538
+The f1 score is 0.892857
+The lowest train error is 0.000000
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{c\PYZus{}3\PYZus{}1}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{c\PYZus{}3\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{c\PYZus{}3\PYZus{}rate\PYZus{}lowest} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}n is \PYZpc{}d\PYZsq{} \PYZpc{} (n[i]))}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{c\PYZus{}3\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{k\PYZus{}} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         print (max(k\PYZus{}))}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                     \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                     \PY{n}{c\PYZus{}3\PYZus{}rate}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{c\PYZus{}3\PYZus{}rate\PYZus{}lowest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{c\PYZus{}3\PYZus{}rate}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Learning curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numbers of train sample}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error of test samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{c\PYZus{}3\PYZus{}rate\PYZus{}lowest}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (c\PYZhy{}3) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{c\PYZus{}3\PYZus{}1}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (c-3) is 
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{d\PYZus{}1}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{log\PYZus{}p\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{log\PYZus{}p} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{log\PYZus{}p}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{log\PYZus{}p\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{log\PYZus{}p}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{l+m+mi}{10}\PY{p}{)}
+                 \PY{n}{p}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{log\PYZus{}p\PYZus{}1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{k\PYZus{}d} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{211}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{PrettyTable}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k*}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manhattan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         print (train\PYZus{}1)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)} \PY{p}{)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{manhattan}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(error\PYZus{}d\PYZus{}1)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}   \PY{c+c1}{\PYZsh{} find the p and error rate log}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{p}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minkowski}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print (log\PYZus{}p\PYZus{}1[j],error\PYZus{}d\PYZus{}1[j])  \PYZsh{}for check}
+             \PY{n}{best\PYZus{}log10\PYZus{}p} \PY{o}{=} \PY{n}{log\PYZus{}p\PYZus{}1}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The best log10(p) is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{ with the lowest error rate }\PY{l+s+si}{\PYZpc{}.5f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{best\PYZus{}log10\PYZus{}p}\PY{p}{,}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chebyshev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chebyshev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(error\PYZus{}d\PYZus{}1)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{V} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mahalanobis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metric\PYZus{}params}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{V}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} print (\PYZsq{}The best k is \PYZpc{}d with the lowest error is \PYZpc{}f when we want Mahalanobis distance with convariance matrix V\PYZsq{}\PYZpc{}(best\PYZus{}k\PYZus{}d,min(error\PYZus{}d\PYZus{}1)))}
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mahalanobis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(error\PYZus{}d\PYZus{}1)}
+             
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (d) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{d\PYZus{}1}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (d) is 
+The best log10(p) is 0.600000 with the lowest error rate 0.06000
++-------------+----+---------------------+
+|    matrix   | k* |      error rate     |
++-------------+----+---------------------+
+|  manhattan  | 6  | 0.10999999999999999 |
+|  chebyshev  | 16 | 0.07999999999999996 |
+| mahalanobis | 1  | 0.17000000000000004 |
++-------------+----+---------------------+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k}{def} \PY{n+nf}{e}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k\PYZus{}d} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{211}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{PrettyTable}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k* wighted by distance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} print (\PYZsq{}The best k is \PYZpc{}d with the lowest error is \PYZpc{}f when we want Mahalanobis distance with convariance matrix V\PYZsq{}\PYZpc{}(best\PYZus{}k\PYZus{}d,min(error\PYZus{}d\PYZus{}1)))}
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{euclidean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{weights}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manhattan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print (error\PYZus{}d\PYZus{}1)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} print (\PYZsq{}The best k is \PYZpc{}d with the lowest error is \PYZpc{}f when we want Manhattan distance with p becomes 1\PYZsq{}\PYZpc{}(best\PYZus{}k\PYZus{}d,min(error\PYZus{}d\PYZus{}1)))}
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{manhattan}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{error\PYZus{}d\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k\PYZus{}d}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chebyshev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}sample}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{test\PYZus{}1} \PY{o}{=} \PY{n}{data\PYZus{}preprocessing}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)}
+                 \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} print(\PYZsq{}The k is \PYZpc{}d, and the error rate (zero one loss) is \PYZpc{}.2f\PYZsq{} \PYZpc{} (k\PYZus{}d[i],zero\PYZus{}one\PYZus{}loss(y\PYZus{}test, y\PYZus{}pred)))}
+                 \PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{zero\PYZus{}one\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+             \PY{n}{best\PYZus{}k\PYZus{}d} \PY{o}{=} \PY{n}{k\PYZus{}d}\PY{p}{[}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} print (\PYZsq{}The best k is \PYZpc{}d with the lowest error is \PYZpc{}f when we want Chebyshev distance with p becomes infinity\PYZsq{}\PYZpc{}(best\PYZus{}k\PYZus{}d,min(error\PYZus{}d\PYZus{}1)))}
+             \PY{n}{x}\PY{o}{.}\PY{n}{add\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chebyshev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}k\PYZus{}d}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{error\PYZus{}d\PYZus{}1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The answer of the (e) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{e}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The answer of the (e) is 
++-----------+------------------------+---------------------+
+|   matrix  | k* wighted by distance |      error rate     |
++-----------+------------------------+---------------------+
+| euclidean |           6            | 0.09999999999999998 |
+| manhattan |           26           | 0.09999999999999998 |
+| chebyshev |           16           | 0.10999999999999999 |
++-----------+------------------------+---------------------+
+
+    \end{Verbatim}
+
+    The lowest training error rate I achieved in this exercise is 0, shown
+in the function c\_3\_1()
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
